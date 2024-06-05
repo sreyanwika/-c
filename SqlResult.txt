@@ -1,0 +1,33 @@
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+
+namespace WinAppDBWithAdapter
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = "Data Source=DESKTOP-93Q7EDJ\\SQLEXPRESS;Initial Catalog=CustomerDB;Integrated Security=True";
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = "SELECT * FROM CustomerTable";
+
+            DataTable DTable1 = new DataTable();
+
+            SqlDataAdapter DA1 = new SqlDataAdapter(cmd);
+
+            DA1.Fill(DTable1);
+
+            dataGridView1.DataSource = DTable1;
+
+        }
+    }
+}

@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+
+namespace WinFormsApp2
+{
+    public partial class FormDB : Form
+    {
+        public FormDB()
+        {
+            InitializeComponent();
+        }
+
+        public string constring = "Data Source=DESKTOP-93Q7EDJ\\SQLEXPRESS;Initial Catalog=myDB;Integrated Security=True;";
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection(constring);
+            con.Open();
+            if(con.State == ConnectionState.Open)
+            {
+                string sqlstr = "insert into dbo.mytable(name,address,number)values('" + txtName.Text.ToString() + "','" + txtAddress.Text.ToString() + "'," + int.Parse(txtNumber.Text) + ")";
+                MessageBox.Show(sqlstr);
+                SqlCommand cmd = new SqlCommand(sqlstr, con);
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("connection made sucessfuly");
+                
+            }
+        }
+    }
+}
+
